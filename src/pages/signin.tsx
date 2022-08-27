@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
+import { authApi } from '../../lib/api';
 
 import SignForm from '../components/SignForm';
 
@@ -11,8 +12,9 @@ const Signin: NextPage = () => {
     const [button, setButton] = useState(false);
     
     const signIn = async() => {
-      let data = await postUser({name, email, password});
-      console.log(data)
+      let data = await authApi('/api/signin','POST', {name, email, password});
+
+      console.log('novo', data)
     }
 
     useEffect(() => {
@@ -32,13 +34,3 @@ const Signin: NextPage = () => {
 
 export default Signin
 
-const postUser = async(user:any) => {
-  let rawResponse = await fetch('/api/signin', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json;charset=utf-8'},
-    body: JSON.stringify(user)
-  });
-  rawResponse = await rawResponse.json();
-
-  return rawResponse;
-}

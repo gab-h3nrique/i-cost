@@ -1,13 +1,40 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { useEffect, useState } from 'react';
+import { authApi } from '../../lib/api';
+
+import Router from 'next/router';
+
+import LoginForm from '../components/LoginForm';
 
 const Home: NextPage = () => {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-     <div>login</div>
-    </div>
-  )
+ 
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [button, setButton] = useState(false);
+  
+  const login = async() => {
+    let data = await authApi('/api/login', 'POST', {name, email, password});
+    if(false) {
+
+      Router.push('/app');
+    }
+    console.log('novo', data)
+  }
+
+  useEffect(() => {
+    if(email && password) {
+      setButton(true)
+    } else {
+      setButton(false)
+    }
+  },[email, password])
+
+return (
+  <>
+      <LoginForm user={ {setName, setEmail, setPassword, button, login} } />
+  </>
+)
 }
 
 export default Home

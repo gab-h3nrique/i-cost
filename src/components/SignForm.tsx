@@ -16,7 +16,7 @@ const Sign = ( props: any ) =>{
     }
 
     return (
-      <div className="bg-gray-50">
+      <div className="bg-white">
           <div className="w-96 px-4 mx-auto pt-6">
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-2xl rounded-lg  border-0">
                   <div className="rounded-t mb-0 px-6 py-6">
@@ -36,7 +36,7 @@ const Sign = ( props: any ) =>{
                       </div>
                       <form>
                       <div className="relative w-full mb-3">
-                          <label className="block  text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">Name</label><input onChange={(e)=>{handleName(e)}} type="text" className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Email" />
+                          <label className="block  text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">Name</label><input onChange={(e)=>{handleName(e)}} type="text" className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Name" />
                       </div>
                       <div className="relative w-full mb-3">
                           <label className="block  text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">Email</label><input onChange={(e)=>{handleEmail(e)}} type="email" className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Email" />
