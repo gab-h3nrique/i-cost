@@ -5,11 +5,12 @@ export async function postApi<JSON = any>(url: string, object: any,): Promise<JS
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'Authorization': `Bearer ${getCookie('auth')}`,
+            'Authorization': `Bearer ${await getCookie('auth')}`,
         },
         body: JSON.stringify(object)
     });
-    return await response.json();
+    const data = await response.json();
+    return data;
 }
 
 
@@ -21,7 +22,7 @@ export async function authApi<JSON = any>(url: string, method:string, object: an
         body: JSON.stringify(object)
     });
     const data = await response.json();
-    setCookie('auth', data.accessToken, 360);
+    await setCookie('auth', data.accessToken, 360);
     return data;
 }
 

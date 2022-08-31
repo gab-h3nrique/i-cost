@@ -1,4 +1,4 @@
-export function setCookie(name:string ,value:string ,days:number) {
+export async function setCookie(name:string ,value:string ,days:number) {
     var expires = "";
     if (days) {
         var date = new Date();
@@ -7,7 +7,7 @@ export function setCookie(name:string ,value:string ,days:number) {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
-export function getCookie(name:string) {
+export async function getCookie(name:string) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
@@ -17,6 +17,6 @@ export function getCookie(name:string) {
     }
     return null;
 }
-export function deleteCookie(name:string) {   
+export async function deleteCookie(name:string) {   
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }

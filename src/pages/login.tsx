@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { authApi } from '../../lib/api';
 
 import Router from 'next/router';
 
 import LoginForm from '../components/LoginForm';
+import { AuthContext } from '../context/auth';
 
 const Home: NextPage = () => {
  
@@ -12,14 +13,18 @@ const Home: NextPage = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [button, setButton] = useState(false);
+  const [message, setMessage] = useState();
+
+  const { addAuthUser }:any = useContext(AuthContext)
   
   const login = async() => {
     let data = await authApi('/api/login', 'POST', {name, email, password});
-    if(false) {
-
+    if(data.accessToken && data.user) {
+      addAuthUser(data.user)
       Router.push('/app');
+    } else {
+      setMessage(data.message);
     }
-    console.log('novo', data)
   }
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const Home: NextPage = () => {
 
 return (
   <>
-      <LoginForm user={ {setName, setEmail, setPassword, button, login} } />
+      <LoginForm user={ {setName, setEmail, setPassword, message, button, login} } />
   </>
 )
 }

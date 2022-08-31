@@ -1,8 +1,10 @@
 import type { NextPage } from 'next'
-import { useEffect, useState } from 'react';
+import Router from 'next/router';
+import { useContext, useEffect, useState } from 'react';
 import { authApi } from '../../lib/api';
 
 import SignForm from '../components/SignForm';
+import { AuthContext } from '../context/auth';
 
 const Signin: NextPage = () => {
 
@@ -10,11 +12,18 @@ const Signin: NextPage = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [button, setButton] = useState(false);
+    const [message, setMessage] = useState();
+
+    const { addAuthUser }:any = useContext(AuthContext)
     
     const signIn = async() => {
       let data = await authApi('/api/signin','POST', {name, email, password});
-
-      console.log('novo', data)
+      if(data.accessToken && data.user) {
+        addAuthUser(data.user)
+        Router.push('/app');
+      } else {
+        setMessage(data.message);
+      }
     }
 
     useEffect(() => {
@@ -27,7 +36,7 @@ const Signin: NextPage = () => {
 
   return (
     <>
-        <SignForm user={ {setName, setEmail, setPassword, button, signIn} } />
+        <SignForm user={ {setName, setEmail, setPassword, message, button, signIn} } />
     </>
   )
 }

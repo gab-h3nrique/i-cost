@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 
 const Login = ( props: any ) =>{
-    const {setEmail, setPassword, button, login} = props.user;
+    const {setEmail, setPassword, message, button, login} = props.user;
 
     const handleEmail = (e:any) => {
         setEmail(e.target.value)
@@ -37,6 +37,9 @@ const Login = ( props: any ) =>{
                       </div>
                       <div className="relative w-full mb-3">
                           <label className="block  text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">Password</label><input onChange={(e)=>{handlePassword(e)}} type="password" className="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="Password"  />
+                      </div>
+                      <div className="flex justify-center">
+                        { message && <span className="text-red-600/75  text-center font-semibold">{message}</span>}
                       </div>
                       <div className="text-center mt-6">
                           <button disabled={!button} onClick={()=>login()} className="bg-black text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150" type="button"> Login In </button>
