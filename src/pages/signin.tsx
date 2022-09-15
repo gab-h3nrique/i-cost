@@ -14,12 +14,12 @@ const Signin: NextPage = () => {
     const [button, setButton] = useState(false);
     const [message, setMessage] = useState();
 
-    const { addAuthUser }:any = useContext(AuthContext)
+    const { setAuthUserLogin }:any = useContext(AuthContext)
     
     const signIn = async() => {
       let data = await authApi('/api/signin','POST', {name, email, password});
       if(data.accessToken && data.user) {
-        addAuthUser(data.user)
+        await setAuthUserLogin()
         Router.push('/app');
       } else {
         setMessage(data.message);

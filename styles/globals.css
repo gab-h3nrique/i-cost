@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer fonts {
+    .default-font {
+        /* Empty yet */
+    }
+    .default-title {
+        @apply !font-semibold;
+    }
+}
+
+@layer compontens {
+    .default-grid {
+        @apply container grid gap-5 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 p-5;
+    }
+    .default-card {
+        @apply flex rounded-3xl effect hover:!shadow-md cursor-pointer;
+    }
+    .default-content {
+        @apply flex h-32 w-full m-3;
+    }
+    .default-input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full;
+    }
+
+
+
+}
+
+.globalBackground {
+    background: #e9e9f5;
+}
+.effect {
+    background: #e9e9f5;
+    -webkit-box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
+    box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
+}
+
