@@ -13,44 +13,29 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
     // console.log('req',req)
     if(method === 'POST') {
 
-        const { userGroup } = req.body
-        console.log('dlkafjk',userGroup)
-        if(!userGroup) {
+        const { group, user } = req.body
+        
+        if(!user) {
             return res.status(200).json({ message: 'missing parameters' })
         }
 
         try {
-
-            // const groupDb = await prisma.user.create({
-            //     data: <User>{
-            //     name: name, 
-            //     email: email,
-            //     password: password
-            //     }
-            // })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
+            const groupDb = await prisma.group.create({
+                data: {
+                name: group, 
+                userId: user.id,
+                ruler: true,
+                }
+            })
+            console.log(groupDb);
+            return res.status(201).json({ groupDb })
 
         } catch (error) {
             console.error(error)
-            return res.status(404).json({ message: 'users not found' })
+            return res.status(500).json({ message: error })
         }
 
     }
 
-    return res.status(405).json({ message: 'method Not allowed' })
+    // return res.status(405).json({ message: 'method Not allowed' })
 }

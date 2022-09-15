@@ -17,11 +17,11 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
         try {
 
-            const group = await prisma.group.findMany({
-                where: {
-                    email: email
-                }
-            })
+            // const group = await prisma.group.findMany({
+            //     where: {
+            //         email: email
+            //     }
+            // })
 
 
 

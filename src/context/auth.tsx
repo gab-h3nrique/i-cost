@@ -3,18 +3,22 @@ import { cookieUser } from "../../lib/auth";
 
 export const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }:any) => {
-    const [authUser, setAuthUser] = useState({});
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
 
-    const getAuthUser = async() => {
+export const AuthProvider = ({ children }:any) => {
+    const [authUser, setAuthUser]:any = useState({});
+
+    const getAuthUser = () => {
         return  authUser
     }
 
     const addAuthUser = async() => {// FUNÇÃO PARA PREENCHER O USUARIO NOVAMENTE NO CONTEXT
-        setAuthUser(await cookieUser() as Object)
+        if (typeof window !== "undefined" && !authUser.id) setAuthUser(await cookieUser() as Object)
     }
 
-    const removeAuthUser = async() => {
+    const removeAuthUser = () => {
         setAuthUser({})
     }
 
