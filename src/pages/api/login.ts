@@ -19,36 +19,36 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
 
     try {
 
-        const userDb = await prisma.user.findUnique({
-            where: {
-              email: 'a',
-            },
-        })
-
-        console.log('typeof email:', typeof email, email)
-        console.log('typeof email:', typeof password, password)
-        console.log('typeof email:', typeof userDb, userDb)
-
-        return res.status(200).json({ accessToken: '123', user: userDb });
         // const userDb = await prisma.user.findUnique({
         //     where: {
-        //         email: email
-        //     }
+        //       email: 'a',
+        //     },
         // })
-        
-        // if(!userDb || email !== userDb.email) {
-        //     return res.status(404).json({ message: 'email or password invalid!' })
-        // }
-        
-        // if(password !== userDb.password) {
-        //     return res.status(404).json({ message: 'password invalid!' })
-        // }
 
-        // const userLogin = {id:userDb.id, name:userDb.name, email:userDb.email};
+        // console.log('typeof email:', typeof email, email)
+        // console.log('typeof email:', typeof password, password)
+        // console.log('typeof email:', typeof userDb, userDb)
 
-        // const accessToken = jwt.sign(userLogin, process.env.ACCESS_TOKEN as string);
+        // return res.status(200).json({ accessToken: '123', user: userDb });
+        const userDb = await prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        })
         
-        // return res.status(200).json({ accessToken: accessToken, user: userLogin });
+        if(!userDb || email !== userDb.email) {
+            return res.status(404).json({ message: 'email or password invalid!' })
+        }
+        
+        if(password !== userDb.password) {
+            return res.status(404).json({ message: 'password invalid!' })
+        }
+
+        const userLogin = {id:userDb.id, name:userDb.name, email:userDb.email};
+
+        const accessToken = jwt.sign(userLogin, process.env.ACCESS_TOKEN as string);
+        
+        return res.status(200).json({ accessToken: accessToken, user: userLogin });
     } catch (error) {
         console.error(error)
         return res.status(500).end(error)
