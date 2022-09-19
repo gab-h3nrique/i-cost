@@ -17,14 +17,31 @@ const Home: NextPage = () => {
 
   const { setAuthUserLogin }:any = useContext(AuthContext)
   
+
+  const logar = (user:any) => {
+    fetch('/api/login', {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
+    .then(json => {
+      console.log(json)
+      return json
+    })
+    .catch(err => err);
+  }
+
+
   const login = async() => {
-    let data = await authApi('/api/login', 'POST', {name, email, password});
-    if(data.accessToken && data.user) {
-      await setAuthUserLogin(data.user)
-      Router.push('/app');
-    } else {
-      setMessage(data.message);
-    }
+    // let data = await authApi('/api/login', 'POST', {name, email, password});
+    // if(data.accessToken && data.user) {
+    //   await setAuthUserLogin(data.user)
+    //   Router.push('/app');
+    // } else {
+    //   setMessage(data.message);
+    // }
+    let data = logar({name, email, password})
   }
 
   useEffect(() => {
