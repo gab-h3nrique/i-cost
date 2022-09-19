@@ -9,12 +9,12 @@ const Home: NextPage = () => {
   const [groupName, setGroupName] = useState()
   
   addAuthUser()
+  const { name } = getAuthUser();
   
-
   useEffect(() => {
     if(authUser.id) {
       console.log('usuario', authUser)
-
+      
       // createGroup(authUser)
 
     }
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className="mt-3 text-2xl">
-        {authUser.name} Chose a group{' '}
+        {name} Chose a group{' '}
         </p>
 
         <button onClick={async()=>console.log(authUser)}>++</button>

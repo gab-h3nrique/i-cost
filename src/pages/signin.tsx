@@ -19,7 +19,7 @@ const Signin: NextPage = () => {
     const signIn = async() => {
       let data = await authApi('/api/signin','POST', {name, email, password});
       if(data.accessToken && data.user) {
-        await setAuthUserLogin()
+        await setAuthUserLogin(data.user)
         Router.push('/app');
       } else {
         setMessage(data.message);

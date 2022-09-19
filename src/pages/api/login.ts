@@ -18,6 +18,18 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
     }
 
     try {
+
+        // const userDb = await prisma.user.findUnique({
+        //     where: {
+        //       email: 'a',
+        //     },
+        // })
+
+        // console.log('typeof email:', typeof email, email)
+        // console.log('typeof email:', typeof password, password)
+        // console.log('typeof email:', typeof userDb, userDb)
+
+        // return res.status(200).json({ accessToken: '123', user: userDb });
         const userDb = await prisma.user.findUnique({
             where: {
                 email: email
