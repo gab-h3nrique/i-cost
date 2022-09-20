@@ -1,6 +1,6 @@
 
 export interface Group {
-    id?: number;
+    id: number;
     name: string;
     userId: number;
     ruler: boolean; 

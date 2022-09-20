@@ -10,3 +10,12 @@ export const createGroup = async(groupName:string , userID:number, ruler:boolean
     })
     return groupDb
 }
+
+export const getAllGroup = async(userID:number) => {
+    const groupDb = await prisma.group.findMany({
+        where: { 
+            userId: userID
+        }
+    })
+    return groupDb
+}

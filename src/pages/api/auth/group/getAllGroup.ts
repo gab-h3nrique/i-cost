@@ -1,13 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createGroup } from '../../../../../lib/api/group';
+import { getAllGroup } from '../../../../../lib/api/group';
 import { Group } from '../../../../../types/groupType';
 
 
 export default async function handler( req: NextApiRequest,res: NextApiResponse<Object>) {
     
     const { method } = req
-    // console.log('req',req)
+
     if(method === 'POST') {
 
         const { groupName, user , ruler} = req.body
@@ -18,9 +17,9 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
         try {
 
-            const group :Group = await createGroup(groupName, user.id, ruler);
+            const groups :Group[] = await getAllGroup(user.id);
 
-            return res.status(201).json({ group })
+            return res.status(201).json({ groups })
 
         } catch (error) {
 

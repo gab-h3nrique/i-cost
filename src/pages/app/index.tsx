@@ -1,34 +1,46 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { postApi } from '../../../lib/api'
+import { Group } from '../../../types/groupType'
 import { useAuth } from '../../context/auth'
 
+
+// type Group = {
+//   id: number;
+//   name: string;
+//   userId?: string;
+//   ruler?: boolean;
+// };
 const Home: NextPage = () => {
   const {getAuthUser ,addAuthUser , authUser}:any = useAuth();
 
   const [groupName, setGroupName] = useState<string>('')
+  const [arrayGroup, setArrayGroup] = useState<Group[]>()
   
   addAuthUser()
   const { name } = getAuthUser();
   
   useEffect(() => {
     if(authUser.id) {
+
       console.log('usuario', authUser)
-      
-      // createGroup(authUser)
+      getAllGroup(authUser)
 
     }
   },[authUser])
 
   
-  const getGroup = async (user:any, group:string) => {
-    const data = await postApi('/api/auth/createGroup', {group, user})
-    console.log('retorno', data)
+  const getAllGroup = async (user:any) => {
+    const data = await postApi('/api/auth/group/getAllGroup', {user})
+    if(data.groups.length > 0) {
+      setArrayGroup(data.groups)
+      console.log('arrayGroup', arrayGroup)
+    }
   }
-  const createGroup = async (user:any, group:string, ruler:boolean) => {
-    const data = await postApi('/api/auth/group/createGroup', {group, user, ruler})
-    if(data) {
-      console.log('sdfkllsdaf', data)
+  const createGroup = async (user:any, groupName:string, ruler:boolean) => {
+    const data = await postApi('/api/auth/group/createGroup', {groupName, user, ruler})
+    if(data.group) {
+      console.log('sdfkllsdaf', data.group)
     }
   }
 
@@ -59,7 +71,15 @@ const Home: NextPage = () => {
               <button onClick={()=>createGroup(authUser, groupName, true)} className="self-end text-4xl font-bold text-center"> + </button>
             </div>
             {
-
+              arrayGroup !== undefined && arrayGroup.map(({id, name}, key)=>{
+                return (
+                  <>
+                    <div>{key}</div>
+                    <div>{id}</div>
+                    <div>{name}</div>
+                  </>
+                )
+              })
             }
             <div className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600">
               <h3 className="text-2xl font-bold"> { } &rarr;</h3>
