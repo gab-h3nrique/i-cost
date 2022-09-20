@@ -6,7 +6,7 @@ import { useAuth } from '../../context/auth'
 const Home: NextPage = () => {
   const {getAuthUser ,addAuthUser , authUser}:any = useAuth();
 
-  const [groupName, setGroupName] = useState()
+  const [groupName, setGroupName] = useState<string>('')
   
   addAuthUser()
   const { name } = getAuthUser();
@@ -25,9 +25,11 @@ const Home: NextPage = () => {
     const data = await postApi('/api/auth/createGroup', {group, user})
     console.log('retorno', data)
   }
-  const createGroup = async (user:any, group:string) => {
-    const data = await postApi('/api/auth/createGroup', {group, user})
-    console.log('retorno', data)
+  const createGroup = async (user:any, group:string, ruler:boolean) => {
+    const data = await postApi('/api/auth/group/createGroup', {group, user, ruler})
+    if(data) {
+      console.log('sdfkllsdaf', data)
+    }
   }
 
   return (
@@ -54,7 +56,7 @@ const Home: NextPage = () => {
             <div className="flex aling-center justify-between aling-center rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
               <input  onChange={(e)=>{setGroupName(e.target.value as any)}} className="font-bold rounded-lg w-4/5 text-center"  placeholder="New group . . ." value={groupName || ''}/>
 
-              <button onClick={()=>createGroup(authUser, groupName as any)} className="self-end text-4xl font-bold text-center"> + </button>
+              <button onClick={()=>createGroup(authUser, groupName, true)} className="self-end text-4xl font-bold text-center"> + </button>
             </div>
             {
 
