@@ -34,13 +34,12 @@ const Home: NextPage = () => {
     const data = await postApi('/api/auth/group/getAllGroup', {user})
     if(data.groups.length > 0) {
       setArrayGroup(data.groups)
-      console.log('arrayGroup', arrayGroup)
     }
   }
   const createGroup = async (user:any, groupName:string, ruler:boolean) => {
     const data = await postApi('/api/auth/group/createGroup', {groupName, user, ruler})
     if(data.group) {
-      console.log('sdfkllsdaf', data.group)
+      getAllGroup(authUser)
     }
   }
 
@@ -74,16 +73,13 @@ const Home: NextPage = () => {
               arrayGroup !== undefined && arrayGroup.map(({id, name}, key)=>{
                 return (
                   <>
-                    <div>{key}</div>
-                    <div>{id}</div>
-                    <div>{name}</div>
+                    <div id={`${key}`} className="mt-6 w-96 rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
+                     <h3 className="text-2xl font-bold"> { name } &rarr;</h3>
+                    </div>
                   </>
                 )
               })
             }
-            <div className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600">
-              <h3 className="text-2xl font-bold"> { } &rarr;</h3>
-            </div>
 
           </div>
 

@@ -5,7 +5,16 @@ export const createGroup = async(groupName:string , userID:number, ruler:boolean
         data: {
         name: groupName,
         userId: userID,
-        ruler: ruler,
+        ruler: ruler
+        }
+    })
+    return groupDb
+}
+export const getGroupForName = async(groupName:string, userId:number) => {
+    const groupDb = await prisma.group.findFirst({
+        where: { 
+            name: groupName, 
+            userId: userId
         }
     })
     return groupDb

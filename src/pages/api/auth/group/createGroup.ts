@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createGroup } from '../../../../../lib/api/group';
+import { createGroup, getGroupForName } from '../../../../../lib/api/group';
 import { Group } from '../../../../../types/groupType';
 
 
@@ -17,8 +17,13 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
         }
 
         try {
+            const isthereGroup = await getGroupForName(groupName, user.id)
 
-            const group :Group = await createGroup(groupName, user.id, ruler);
+            if(isthereGroup) {
+                return res.status(409).json({ message: 'this group name is already in use' })
+            } 
+            
+            const group :Group = await createGroup(groupName, user.id, ruler)
 
             return res.status(201).json({ group })
 

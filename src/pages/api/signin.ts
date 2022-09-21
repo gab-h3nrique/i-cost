@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
         })
 
         if(response) {
-            return res.status(409).json({ message: 'this email is already use' })
+            return res.status(409).json({ message: 'this email is already in use' })
         }
         
         const userDb = await prisma.user.create({
