@@ -6,13 +6,8 @@ import { Group } from '../../../types/groupType'
 import { useAuth } from '../../context/auth'
 
 
-// type Group = {
-//   id: number;
-//   name: string;
-//   userId?: string;
-//   ruler?: boolean;
-// };
-const Home: NextPage = () => {
+
+const Group: NextPage = () => {
   const {getAuthUser ,addAuthUser , authUser}:any = useAuth();
 
   const [groupName, setGroupName] = useState<string>('')
@@ -57,14 +52,14 @@ const Home: NextPage = () => {
           </a>
         </h1>
 
-        <p className="mt-3 text-2xl"> select a group </p>
+        <p className="mt-3 text-2xl"> select a Budget </p>
 
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
           <div>
 
             <div className="flex aling-center justify-between aling-center rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
-              <input  onChange={(e)=>{setGroupName(e.target.value as any)}} className="font-bold rounded-lg w-4/5 text-center"  placeholder="New group . . ." value={groupName || ''}/>
+              <input  onChange={(e)=>{setGroupName(e.target.value as any)}} className="font-bold rounded-lg w-4/5 text-center"  placeholder="New budget . . ." value={groupName || ''}/>
 
               <button onClick={()=>createGroup(authUser, groupName, true)} className="self-end text-4xl font-bold text-center"> + </button>
             </div>
@@ -89,5 +84,5 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Group
 
