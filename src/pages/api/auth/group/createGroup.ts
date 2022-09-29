@@ -15,7 +15,7 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
         if(!user) return res.status(200).json({ message: 'missing parameters' })
 
         try {
-            const alreadyExists = await getGroupForName(groupName, user.id)
+            const alreadyExists = await getGroupForName(groupName)
 
             if(alreadyExists) return res.status(409).json({ message: 'this group name is already in use' })
             
