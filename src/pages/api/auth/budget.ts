@@ -10,10 +10,10 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
     if(method === 'POST') {
 
         const { userAuth } = req.body
+        
         console.log('dlkafjk', userAuth)
-        if(!userAuth) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+
+        if(!userAuth)  return res.status(200).json({ message: 'missing parameters' })
 
         try {
 

@@ -11,9 +11,7 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
         const { groupName, user , ruler} = req.body
         
-        if(!user) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+        if(!user) return res.status(200).json({ message: 'missing parameters' })
 
         try {
 
@@ -21,7 +19,7 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
             return res.status(201).json({ groups })
 
-        } catch (error) {
+        } catch(error) {
 
             console.error(error)
             return res.status(500).json({ message: error })

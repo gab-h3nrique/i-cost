@@ -2,16 +2,33 @@ import type { NextPage } from 'next'
 import Router from 'next/router';
 import { useEffect, useState } from 'react'
 import { postApi } from '../../../lib/api'
-import { Group } from '../../../types/groupType'
+import { Budget } from '../../../types/budgetType'
 import { useAuth } from '../../context/auth'
 
+import { GetServerSideProps } from 'next'
+
+interface Props {
+  group: string;
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { group } = context.query
+  
+  return { 
+    props: { group }
+  }
+  
+}
 
 
-const Group: NextPage = () => {
-  const {getAuthUser ,addAuthUser , authUser}:any = useAuth();
+const Group: NextPage<Props> = (props) => {
 
-  const [groupName, setGroupName] = useState<string>('')
-  const [arrayGroup, setArrayGroup] = useState<Group[]>()
+  const { group:pageName } = props
+
+  const {getAuthUser ,addAuthUser , authUser}:any = useAuth()
+
+  const [budgetName, setBudgetpName] = useState<string>('')
+  const [arrayBudget, setArrayBudget] = useState<Budget[]>()
   
   addAuthUser()
   const { name } = getAuthUser();
@@ -19,27 +36,27 @@ const Group: NextPage = () => {
   useEffect(() => {
     if(authUser.id) {
 
-      console.log('usuario', authUser)
-      getAllGroup(authUser)
+      getAllBudget(pageName)
 
     }
   },[authUser])
 
-  const getAllGroup = async (user:any) => {
-    const data = await postApi('/api/auth/group/getAllGroup', {user})
-    if(data.groups.length > 0) {
-      setArrayGroup(data.groups)
+  const getAllBudget = async (pageName:string) => {
+    const data = await postApi('/api/auth/budget/getAllBudget', {budgetName: pageName})
+    console.log('data', data)
+    if(data.budgets.length > 0) {
+      setArrayBudget(data.budgets)
     }
   }
-  const createGroup = async (user:any, groupName:string, ruler:boolean) => {
-    const data = await postApi('/api/auth/group/createGroup', {groupName, user, ruler})
-    if(data.group) {
-      getAllGroup(authUser)
+  const createBudget = async (name:string, groupName:string, description?:string) => {
+    const data = await postApi('/api/auth/budget/createBudget', {name, groupName, description})
+    if(data.budget) {
+      getAllBudget(pageName)
     }
   }
   
-  const redirectToGroupSelected = (groupName:string) => {
-    Router.push(`/app/${groupName}`);
+  const redirectToBudgetSelected = (budgetName:string) => {
+    Router.push(`/app/${budgetName}`);
   }
 
   return (
@@ -59,15 +76,15 @@ const Group: NextPage = () => {
           <div>
 
             <div className="flex aling-center justify-between aling-center rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
-              <input  onChange={(e)=>{setGroupName(e.target.value as any)}} className="font-bold rounded-lg w-4/5 text-center"  placeholder="New budget . . ." value={groupName || ''}/>
+              <input  onChange={(e)=>{setBudgetpName(e.target.value as any)}} className="font-bold rounded-lg w-4/5 text-center"  placeholder="New budget . . ." value={budgetName || ''}/>
 
-              <button onClick={()=>createGroup(authUser, groupName, true)} className="self-end text-4xl font-bold text-center"> + </button>
+              <button onClick={()=>createBudget(budgetName, pageName, '')} className="self-end text-4xl font-bold text-center"> + </button>
             </div>
             {
-              arrayGroup !== undefined && arrayGroup.map(({id, name}, key)=>{
+              arrayBudget !== undefined && arrayBudget.map(({id, name}, key)=>{
                 return (
                   <>
-                    <div id={`${key}`}  onClick={()=>redirectToGroupSelected(name) } className="mt-6 w-96 rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
+                    <div id={`${key}`}  onClick={()=>redirectToBudgetSelected(name) } className="mt-6 w-96 rounded-xl border p-6 text-center hover:text-blue-600 focus:text-blue-600">
                      <h3 className="text-2xl font-bold"> { name } &rarr;</h3>
                     </div>
                   </>

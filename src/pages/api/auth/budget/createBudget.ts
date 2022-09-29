@@ -1,33 +1,29 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createGroup, getGroupForName } from '../../../../../lib/api/group';
-import { Group } from '../../../../../types/groupType';
+import { createBudget, getBudgetForName } from '../../../../../lib/api/budget';
+import { Budget } from '../../../../../types/budgetType';
 
 
 export default async function handler( req: NextApiRequest,res: NextApiResponse<Object>) {
     
     const { method } = req
-    // console.log('req',req)
+    
     if(method === 'POST') {
 
-        const { groupName, user , ruler} = req.body
+        const { name, groupName , description } = req.body
         
-        if(!user) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+        if(!name || !groupName)  return res.status(200).json({ message: 'missing parameters' })
 
         try {
-            const alreadyExists = await getGroupForName(groupName, user.id)
+            const alreadyExists = await getBudgetForName(name)
 
-            if(alreadyExists) {
-                return res.status(409).json({ message: 'this group name is already in use' })
-            } 
-            
-            const group :Group = await createGroup(groupName, user.id, ruler)
+            if(alreadyExists) return res.status(409).json({ message: 'this group name is already in use' })
 
-            return res.status(201).json({ group })
+            const budget :Budget = await createBudget(name, groupName, description)
 
-        } catch (error) {
+            return res.status(201).json({ budget })
+
+        } catch(error) {
 
             console.error(error)
             return res.status(500).json({ message: error })

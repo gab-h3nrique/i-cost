@@ -8,15 +8,11 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
   const { method } = req;
 
-  if(method !== 'POST') {
-    return res.status(405).json({ message: 'method Not allowed' })
-  }
+  if(method !== 'POST')  return res.status(405).json({ message: 'method Not allowed' })
 
   const { auth } = req.body
 
-  if(!auth) {
-    return res.status(200).json({ message: 'missing parameters' })
-  }
+  if(!auth)  return res.status(200).json({ message: 'missing parameters' })
 
   try {
     // const { id } = jwt.decode(auth) as JwtPayload

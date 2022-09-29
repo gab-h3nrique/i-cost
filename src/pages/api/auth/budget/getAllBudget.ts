@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllGroup } from '../../../../../lib/api/group';
-import { Group } from '../../../../../types/groupType';
+import { getAllBudget } from '../../../../../lib/api/budget';
+import { Budget } from '../../../../../types/budgetType';
 
 
 export default async function handler( req: NextApiRequest,res: NextApiResponse<Object>) {
@@ -9,19 +9,17 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
     if(method === 'POST') {
 
-        const { groupName, user , ruler} = req.body
+        const { budgetName } = req.body
         
-        if(!user) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+        if(!budgetName) return res.status(200).json({ message: 'missing parameters' })
 
         try {
 
-            const groups :Group[] = await getAllGroup(user.id);
+            const budgets :Budget[] = await getAllBudget(budgetName)
 
-            return res.status(201).json({ groups })
+            return res.status(201).json({ budgets })
 
-        } catch (error) {
+        } catch(error) {
 
             console.error(error)
             return res.status(500).json({ message: error })

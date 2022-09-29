@@ -9,14 +9,9 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
     const {name, email, password} = req.body;
     const { method } = req;
     
-    if(method !== 'POST') {
-        return res.status(405).json({ message: 'method Not allowed' })
-    }
+    if(method !== 'POST') return res.status(405).json({ message: 'method Not allowed' })
 
-    if(!name || !email || !password) {
-        return res.status(200).json({ message: 'missing parameters' })
-    }
-
+    if(!name || !email || !password) return res.status(200).json({ message: 'missing parameters' })
     
     try {
         const response = await prisma.user.findUnique({
@@ -25,9 +20,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
             }
         })
 
-        if(response) {
-            return res.status(409).json({ message: 'this email is already in use' })
-        }
+        if(response) return res.status(409).json({ message: 'this email is already in use' })
         
         const userDb = await prisma.user.create({
             data: <User>{
@@ -41,8 +34,11 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
         const accessToken = jwt.sign(newUser, process.env.ACCESS_TOKEN as string);
         
         return res.status(201).json({ accessToken: accessToken, user: newUser });
-    } catch (error) {
+
+    } catch(error) {
+
         console.error(error)
         return res.status(500).end(error)
+        
     }
 }

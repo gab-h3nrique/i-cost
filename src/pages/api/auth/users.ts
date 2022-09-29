@@ -11,9 +11,7 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
         const { userAuth } = req.body
 
-        if(!userAuth) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+        if(!userAuth)  return res.status(200).json({ message: 'missing parameters' })
 
         try {
 

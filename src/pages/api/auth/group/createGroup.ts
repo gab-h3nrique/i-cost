@@ -12,22 +12,18 @@ export default async function handler( req: NextApiRequest,res: NextApiResponse<
 
         const { groupName, user , ruler} = req.body
         
-        if(!user) {
-            return res.status(200).json({ message: 'missing parameters' })
-        }
+        if(!user) return res.status(200).json({ message: 'missing parameters' })
 
         try {
             const alreadyExists = await getGroupForName(groupName, user.id)
 
-            if(alreadyExists) {
-                return res.status(409).json({ message: 'this group name is already in use' })
-            } 
+            if(alreadyExists) return res.status(409).json({ message: 'this group name is already in use' })
             
             const group :Group = await createGroup(groupName, user.id, ruler)
 
             return res.status(201).json({ group })
 
-        } catch (error) {
+        } catch(error) {
 
             console.error(error)
             return res.status(500).json({ message: error })
