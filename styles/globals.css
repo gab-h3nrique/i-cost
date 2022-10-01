@@ -16,7 +16,7 @@
         @apply container grid gap-5 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 p-5;
     }
     .default-card {
-        @apply flex rounded-3xl effect hover:!shadow-md cursor-pointer;
+        @apply flex rounded-3xl neumorphism hover:!shadow-md cursor-pointer;
     }
     .default-content {
         @apply flex h-32 w-full m-3;
@@ -28,13 +28,44 @@
 
 
 }
-
+/* https://hype4.academy/tools/neumorphism-generator */
 .globalBackground {
     background: #e9e9f5;
 }
-.effect {
+
+.hoverPointer:hover {
     background: #e9e9f5;
-    -webkit-box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
     box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
 }
 
+.neumorphism {
+    background: #e9e9f5;
+    box-shadow: 12px 12px 12px #c8c8d3, -12px -12px 12px #ffffff;
+}
+.neumorphism-1 {
+    background: #e9e9f5;
+    box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
+}
+
+.neumorphism-inset {
+    background: #e9e9f5;
+    box-shadow: inset 5px 5px 5px #c8c8d3, inset -5px -5px 5px #ffffff;
+}
+.neumorphism-1-inset {
+    background: #e9e9f5;
+    -webkit-box-shadow: 6px 6px 15px #c8c8d3, -6px -6px 15px #ffffff;
+    box-shadow: inset 6px 6px 15px #c8c8d3, inset -6px -6px 15px #ffffff;
+}
+
+.borderRadius {
+    border-radius: 3rem;
+}
+
+.neumorphism:hover {
+    background: #e9e9f5;
+    box-shadow: 2px 2px 8px #c8c8d3, -2px -2px 8px #ffffff;
+}
+.neumorphism-1:hover {
+    background: #e9e9f5;
+    box-shadow: 2px 2px 8px #c8c8d3, -2px -2px 8px #ffffff;
+}
