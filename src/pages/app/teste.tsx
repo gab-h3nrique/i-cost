@@ -10,6 +10,7 @@ const Teste:NextPage = () => {
         <>
         <div className="flex h-screen globalBackground p-3">
             <Sidebar/>
+            
         </div>
         </>
     )
