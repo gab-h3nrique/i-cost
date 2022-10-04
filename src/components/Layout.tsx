@@ -9,8 +9,7 @@ const Layout = ({children}:any) => {
     return (
         <>
             <Header/>
-            {/* <Navigation/> */}
-            <main className="globalBackground h-screen">
+            <main className="flex h-screen globalBackground p-3">
                 {children}
             </main>
             {/* <Footer/> */}

@@ -13,7 +13,7 @@ const Sidebar = () => {
     return (
         <div className={`flex flex-col gap-5 neumorphism ${open ? 'w-52' : 'w-24'} duration-500 px-3 py-8 borderRadius`}>
             <div className="mb-10">
-                <div onClick={() => setOpen(!open)} className={`flex justify-start  gap-2 items-center  hoverPointer cursor-pointer h-16 rounded-2xl px-3 duration-500`}>
+                <div onClick={() => setOpen(!open)} className={`flex justify-start  gap-2 items-center hoverPointer cursor-pointer h-16 rounded-2xl px-3 duration-500`}>
 
                 <div className={`flex cursor-pointer duration-500 ${open && "rotate-[360deg]"} duration-500 border-2 bg-blue-600 border-white w-fit h-fit rounded-lg p-2 cursor-pointer`}>
                     <div className={`cursor-pointer duration-500 ${open && "rotate-[-360deg]"} duration-500`}>
